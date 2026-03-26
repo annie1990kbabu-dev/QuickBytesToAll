@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Offers</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<h2 style="text-align:center; color:#ff4d6d;">🔥 Special Offers</h2>
+
+<div class="cards">
+
+{% for food in foods %}
+<div class="card">
+     <!-- OFFER -->
+    <p style="color:purple;">
+        {{ food.offer_name }} - {{ food.discount }}% OFF
+    </p>
+    
+    <img src="{{ food.image.url }}">
+
+    <h4>{{ food.name }}</h4>
+
+    <!-- OLD PRICE -->
+    <p style="text-decoration:line-through; color:gray;">
+        ₹{{ food.price }}
+    </p>
+
+    <!-- NEW PRICE -->
+    <p style="color:red; font-weight:bold;">
+        ₹{{ food.offer_price }}
+    </p>
+
+   <p style="color:green;"> 
+    Ends on: {{food.offer_end_date}}
+   </p>
+</div>
+{% empty %}
+<p style="text-align:center;">No offers available</p>
+{% endfor %}
+
+</div>
+
+</body>
+</html>

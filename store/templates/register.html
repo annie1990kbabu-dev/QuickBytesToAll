@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<style>
+
+body{
+    background:#f5f5f5;
+    font-family:Arial, sans-serif;
+}
+
+/* Container */
+.register-container{
+    width:350px;
+    margin:80px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+/* Heading */
+.register-title{
+    font-size:28px;
+    margin-bottom:20px;
+    color:#ff4d6d;
+}
+
+/* Inputs */
+.register-container input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+}
+
+/* Button */
+.register-btn{
+    width:100%;
+    padding:10px;
+    background:#ff4d6d;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.register-btn:hover{
+    background:#e63946;
+}
+
+/* Link */
+.login-link{
+    margin-top:15px;
+    display:block;
+    color:#333;
+}
+
+.login-link a{
+    color:#ff4d6d;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.login-link a:hover{
+    text-decoration:underline;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="register-container">
+
+<h2 class="register-title">📝 Create Account</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<input type="text" name="username" placeholder="Username" required>
+
+<input type="email" name="email" placeholder="Email" required>
+
+<input type="password" name="password" placeholder="Password" required>
+
+<input type="password" name="confirm_password" placeholder="Confirm Password" required>
+
+<button type="submit" class="register-btn">Register</button>
+
+</form>
+
+<p class="login-link">
+Already have an account? 
+<a href="{% url 'login' %}">Login</a>
+</p>
+
+</div>
+
+</body>
+</html>

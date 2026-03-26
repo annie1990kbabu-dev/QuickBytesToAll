@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<style>
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f5f5;
+    margin:0;
+}
+
+/* HEADER */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 30px;
+    background:#fff;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header h2{
+    color:#ff4d6d;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn{
+    background:red;
+    color:white;
+    border:none;
+    padding:8px 15px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* MAIN */
+.container{
+    display:flex;
+    gap:20px;
+    padding:20px;
+}
+
+/* LEFT */
+.food-section{
+    flex:1;
+}
+
+/* RIGHT */
+.order-section{
+    flex:1;
+}
+
+/* ADD BUTTON */
+.add-btn{
+    display:inline-block;
+    margin:10px 0;
+    padding:8px 15px;
+    background:#ff4d6d;
+    color:white;
+    border-radius:6px;
+    text-decoration:none;
+}
+
+/* ORDER CARD */
+.card{
+    background:white;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <h2>🍔 Admin Dashboard</h2>
+
+     <a href="{% url 'admin_report' %}">
+    <button style="background:green; color:white; padding:8px 15px;">
+        📊 Daily Report
+    </button>
+</a>
+
+    <a href="{% url 'admin_logout' %}">
+        <button class="logout-btn">Logout</button>
+    </a>
+   
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+    <!-- FOOD SECTION -->
+    <div class="food-section">
+
+        <a href="{% url 'add_food' %}" class="add-btn">➕ Add New Food</a>
+
+        {% for category in categories %}
+            <h3 style="color:red;">{{ category.name }}</h3>
+
+            {% for food in foods %}
+                {% if food.category.id == category.id %}
+
+                <div style="
+                    border:1px solid #ccc;
+                    padding:10px;
+                    margin:10px 0;
+                    background:white;
+                    display:flex;
+                    gap:15px;
+                    align-items:center;
+                    border-radius:8px;">
+
+                    <!-- Image -->
+                    <img src="{{ food.image.url }}" width="120">
+
+                    <!-- Details -->
+                    <div style="flex:1;">
+                        <h4>{{ food.name }}</h4>
+                        <p>₹{{ food.price }}</p>
+                        <p>{{ food.description }}</p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div>
+                        <a href="{% url 'update_food' food.id %}">✏️ Edit</a>
+                        <br>
+                        <a href="{% url 'delete_food' food.id %}">❌ Delete</a>
+                    </div>
+
+                </div>
+
+                {% endif %}
+            {% endfor %}
+
+        {% endfor %}
+
+    </div>
+
+    <!-- ORDER SECTION -->
+    <div class="order-section">
+
+        <h2>📦 Orders</h2>
+
+        {% for order in orders %}
+        <div class="card">
+
+            <h4>Order #{{ order.id }}</h4>
+            <p><strong>User:</strong> {{ order.user.username }}</p>
+            <p><strong>Total:</strong> ₹{{ order.total }}</p>
+            <p><small>{{ order.created_at }}</small></p>
+
+            <h5>Items:</h5>
+            <ul>
+                {% for item in order.orderitem_set.all %}
+                <li>
+                    {{ item.food_name }} (x{{ item.quantity }}) - ₹{{ item.price }}
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

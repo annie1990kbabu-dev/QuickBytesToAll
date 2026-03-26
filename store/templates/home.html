@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quick Bytes | Food Delivery</title>
+
+<link rel="icon" href="{% static 'images/favicon.ico' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- Header -->
+<header class="topbar">
+
+<div class="logo">
+<h2 class="logo-text">🍔 Quick Bytes</h2>
+</div>
+
+<nav>
+<a href="{% url 'home' %}">Home</a>
+<a href="{% url 'menu' %}">Menu</a>
+<a href="{% url 'offers' %}">Offers</a>
+<a href="{% url 'contact' %}">Contact</a>
+</nav>
+
+<div class="actions">
+
+    <!-- 🛒 Cart Count 
+<p style="
+    background:#ff4d6d;
+    color:white;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:bold;">
+    🛒 {{ request.session.cart|length|default:0 }}
+</p>
+-->
+{% if user.is_authenticated %}
+
+<a href="{% url 'logout' %}">
+<button class="login-btn">Logout</button>
+</a>
+
+{% else %}
+
+<a href="{% url 'login' %}">
+<button class="login-btn">Login</button>
+</a>
+
+<a href="{% url 'register' %}">
+<button class="login-btn">Register</button>
+</a>
+
+{% endif %}
+
+<a href="{% url 'admin_login' %}">
+<button class="login-btn">Admin</button>
+</a>
+
+</div>
+
+</header>
+
+
+<!-- Hero Section -->
+<section class="hero">
+
+<div class="hero-text">
+<h2 style="color:green;">Delicious Food Delivered To Your Door</h2>
+<h2>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h2>
+
+
+<div class="cards">
+
+{% for food in offers %}
+<div class="card">
+
+    <!-- 🔥 DISCOUNT BADGE -->
+    <div class="discount-badge">
+        {{ food.discount }}% OFF
+    </div>
+
+    <!-- IMAGE -->
+    <img src="{{ food.image.url }}">
+
+    <div style="padding:10px;">
+        <h4>{{ food.name }}</h4>
+
+        <!-- OLD PRICE -->
+        <p style="text-decoration:line-through; color:gray;">
+            ₹{{ food.price }}
+        </p>
+
+        <!-- NEW PRICE -->
+        <p style="color:red; font-weight:bold;">
+            ₹{{ food.offer_price }}
+        </p>
+
+        <!-- OFFER NAME -->
+        <p style="color:green;">
+            {{ food.offer_name }}
+        </p>
+    </div>
+
+</div>
+{% endfor %}
+
+</div>
+
+
+
+<!--
+<p>Order your favourite meals </p>
+<form method="GET" action="{% url 'menu' %}">
+    <input type="text" name="q" placeholder="Search food..." value="{{ request.GET.q }}">
+    <button type="submit">Search</button>
+</form> -->
+</div>
+
+<div class="hero-image">
+<img src="{% static 'images/hero-food.png' %}" alt="Food">
+</div>
+
+<!-- Search Section -->
+
+<nav>
+
+<h2 style="color:purple;">Popular Categories</h2>
+
+<div class="categories">
+
+<div class="category">
+<img src="{% static 'images/pizza.png' %}">
+<p>Pizza</p>
+</div>
+
+<div class="category">
+<img src="{% static 'images/burger.png' %}">
+<p>Burger</p>
+</div>
+
+<div class="category">
+<img src="{% static 'images/biryani.png' %}">
+<p>Biryani</p>
+</div>
+
+<div class="category">
+<img src="{% static 'images/dessert.png' %}">
+<p>Dessert</p>
+</div>
+
+</div>
+
+</nav>
+</section>
+
+
+<!-- Best Sellers -->
+<section class="products">
+
+<h2 style="color:purple;">Best Sellers</h2>
+
+<div class="cards">
+
+<div class="card">
+<img src="{% static 'images/pizza.jpg' %}">
+<h4>Cheese Pizza</h4>
+<p>₹180</p>
+
+</div>
+
+<div class="card">
+<img src="{% static 'images/burger.jpg' %}">
+<h4>Zinger Burger</h4>
+<p>₹190</p>
+</div>
+
+<div class="card">
+<img src="{% static 'images/biryani.jpg' %}">
+<h4>Chicken Biryani</h4>
+<p>₹160</p>
+
+</div>
+
+</div>
+
+</section>
+<!-- Cart Preview 
+<section class="cart">
+
+<h3>Your Cart</h3>
+
+<p>Items: 0</p>
+
+<p>Total: ₹0</p>
+
+<button class="main-btn">Checkout</button>
+
+</section>
+-->
+
+<!-- Footer -->
+<footer>
+
+<div class="footer-container">
+
+<div>
+<h3>Quick Bytes</h3>
+<p>Fast and reliable food delivery at your doorstep.</p>
+</div>
+<div>
+<h4>Contact</h4>
+<p>Email: support@quickbytes.com</p>
+<p>Phone: +91 9876543210</p>
+</div>
+
+</div>
+
+<p class="copyright">© 2026 Quick Bytes. All Rights Reserved.</p>
+
+</footer>
+
+</div>
+
+</body>
+</html>
