@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+   
 <title>Menu</title>
+
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 <style>
@@ -155,7 +156,11 @@ h3{
 <div class="menu-container">
 
 <header>
-    <h2 class="logo-text">🍔 Quick Bytes</h2>
+     <a href="{% url 'home' %}" class="back-btn">⬅ Back to Home</a>
+&nbsp &nbsp &nbsp &nbsp 
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+
+    <h2 class="logo-text">🍔 Quick Bytes</h2>&nbsp &nbsp &nbsp
 <a href="{% url 'cart' %}" style="
     background:#ff4d6d;
     color:white;
